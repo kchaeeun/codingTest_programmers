@@ -1,3 +1,4 @@
+#1.
 def solution(arr, divisor):
     answer = []
     for num in arr:
@@ -9,3 +10,6 @@ def solution(arr, divisor):
         
     answer.sort()
     return answer
+
+#2.
+def solution(arr, divisor): return sorted([n for n in arr if n%divisor == 0]) or [-1]
