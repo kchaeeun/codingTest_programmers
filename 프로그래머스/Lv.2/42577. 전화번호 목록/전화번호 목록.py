@@ -1,12 +1,10 @@
 def solution(phone_book):
     answer = True
-    hash_map = {}
-    for phone_number in phone_book:
-        hash_map[phone_number] = 1
-    for phone_number in phone_book:
-        temp = ""
-        for number in phone_number:
-            temp += number
-            if temp in hash_map and temp != phone_number:
-                answer = False
+    phone_book.sort()       # 정렬해서 for문을 적게 사용하고, 최소로 돌게 한다
+    for i in range(len(phone_book)-1):
+        idx = len(phone_book[i])
+        # for j in range(len(phone_book)):
+        # if phone_book[i] != phone_book[i+1]:
+        if phone_book[i+1][:idx] == phone_book[i]:
+            return False
     return answer
