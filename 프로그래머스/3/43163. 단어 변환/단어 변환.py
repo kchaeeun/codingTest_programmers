@@ -1,28 +1,26 @@
 from collections import deque
 def solution(begin, target, words):
-
-    if target not in words:         # targetdl words 안에 없다면 반환할 수 없습니다.
+    answer = 0
+    if target not in words:
         return 0
-    
     return BFS(begin, target, words)
 
 def BFS(begin, target, words):
     queue = deque()
-    queue.append([begin, 0])        # 시작 단어와 단계 0(return 값, 변환 횟수)으로 초기화
+    queue.append([0, begin])
     
     while queue:
-        now, step = queue.popleft() 
-        print(now, step)
+        step, status = queue.popleft()
         
-        if now == target:
+        if status == target:                # 먼저 사전 실행
             return step
         
         for word in words:
             cnt = 0
-            for i in range(len(now)):
-                if now[i] != word[i]:
-                    cnt += 1
-            
-            if cnt == 1:      # 1개만 다르다면(hit -> hot)
-                queue.append([word, step+1])
-    
+            for i in range(len(begin)):
+                if word[i] != status[i]:    # HIT => HOT
+                           cnt +=1
+            if cnt == 1:
+                queue.append([step+1, word])
+                           
+                           
