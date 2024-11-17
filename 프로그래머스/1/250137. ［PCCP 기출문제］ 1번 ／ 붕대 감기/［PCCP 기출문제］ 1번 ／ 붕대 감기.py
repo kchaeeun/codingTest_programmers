@@ -1,33 +1,27 @@
 def solution(bandage, health, attacks):
-    attack_list = []
-    health_d = health
-    acc = 0
-    for i in attacks:
-        attack_list.append(i[0])
-    print(attack_list)
+    answer = 0
+    cnt = 0
+    basic_heal = health
+    attack_d = {}
+    for a in attacks:
+        attack_d[a[0]] = a[1]
         
-    for i in range(attacks[-1][0]+1):
-        print(i)
-        if i not in attack_list:    # 공격 x
-            acc += 1
-            if health < health_d:
-                health += bandage[1]
-                health = min(health, health_d)      # 최대 체력을 초과하지 않도록 
-                if acc == bandage[0]:
-                    health += bandage[2]
-                    health = min(health, health_d)      # 최대 체력을 초과하지 않도록 
-                    acc = 0
-                    
-            # print("Acc "+str(acc))
-            # print("health: " + str(health))
+    for i in range(1,attacks[-1][0]+1):
+        if i in attack_d.keys():
+            health -= attack_d[i]
+            cnt = 0
+            print(health)
+            
+            if health <= 0:
+                return -1
         else:
-            for attack in attacks:
-                if attack[0] == i:
-                    acc = 0
-                    health -= attack[1]
-                    if health <= 0:     # 공격을 받아 체력이 0 이하가 되면 즉시 중지!
-                        return -1
-            # print("health: "+ str(health))
-            # print("축적"+str(acc))
+            health += bandage[1]
+            cnt += 1
+            if cnt == bandage[0]:       # 기술이 성공하면(끝나면) 다시 붕대를 감아서 성공시간이 0으로 초기화
+                health += bandage[2]
+                cnt = 0
+            if health > basic_heal:
+                health = basic_heal
+            print(health)
             
     return health
