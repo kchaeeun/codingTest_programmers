@@ -12,8 +12,8 @@ def solution(bandage, health, attacks):
             cnt = 0
             print(health)
             
-            if health <= 0:
-                return -1
+            if health <= 0:     # health가 공격에 의해 0보다 같거나 작아지면 바로 -1을 리턴
+                return -1       # 여기서 중단하지 않으면 후에 죽었는데도 회복해서 생존으로 간주되어짐!!!!
         else:
             health += bandage[1]
             cnt += 1
